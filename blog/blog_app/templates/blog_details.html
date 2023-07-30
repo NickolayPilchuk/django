@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{blog.name}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+{% include 'inc/_nav.html' %}
+<h1>Автор блога - {{blog.user}}</h1>
+
+{% if user.username == blog.user.username %}
+<button><a href="{{blog.pk}}/add_news">Добавить новость</a></button>
+{% endif %}
+<hr>
+{% for el in page_obj %}
+<h2>{{el.title}}</h2>
+<h4>{{el.text}}</h4>
+<p>{{el.ctime}}</p>
+{% if el.images %}
+<img src="{{el.images.url}}" width="200" class="rounded">
+<br>
+{% endif %}<br>
+<button><a href="/news/{{el.pk}}">Открыть обсуждение</a></button>
+<hr>
+{% endfor %}
+{% include 'inc/_pag.html' %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+{% include 'inc/_footer.html' %}
+</body>
+</html>

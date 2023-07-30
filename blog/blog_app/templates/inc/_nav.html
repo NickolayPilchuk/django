@@ -1,0 +1,49 @@
+
+
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="http://127.0.0.1:8000/">Blog_app</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+	{% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'profile' %}" class="nav-link active"> Профиль   </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="nav-link active"> Выйти   </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'change' %}" class="nav-link active"> Мои блоги   </a>
+        </li>
+	{% else %}
+	<li class="nav-item">
+          <a href="{% url 'login' %}" class="nav-link active"> Войти </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'register' %}" class="nav-link active"> Зарегистрироваться </a>
+        </li>
+	{% endif %}
+        <li class="nav-item">
+          <a href="{% url 'create_blog' %}" class="btn btn-primary">Создать блог</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<hr>
+{% if messages %}
+{% for message in messages %}
+{% if message.tags == 'error'%}
+<div class="alert alert-danger" role="alert">
+  {{message}}
+</div>
+{% else %}
+<div class="alert alert-{{message.tags}}" role="alert">
+  {{message}}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}

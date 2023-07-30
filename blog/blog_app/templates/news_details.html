@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{blog.name}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+{% include 'inc/_nav.html' %}
+<hr>
+<div style="overflow: hidden;">
+    <h5 style="margin: 0; display: inline;">Автор - {{blog.user}}</h5>
+    <img src="{{blog.user.userextended.userpic.url}}" width="100" style="margin: 0; display: inline;">
+</div>
+    <hr>
+<h2>{{news.title}}</h2>
+<h6>{{news.ctime|date:"H:i d E Y"}}</h6>
+<h4>{{news.text}}</h4>
+<hr>
+{% for comment in page_obj.object_list %}
+<hr>
+<div>
+<h5 style="margin: 0; display: inline;">{{comment.user}}</h5>
+    <p style="margin: 0; display: inline;">{{comment.ctime|date:"H:i d E Y"}}</p>
+    <h6>{{comment.text}}</h6>
+    {% if comment.images %}
+    <img src="{{comment.images.url}}" width="200">
+    {% endif %}
+</div>
+<hr>
+{% endfor %}
+{% include 'inc/_pag.html' %}
+<form action="" method="POST" enctype='multipart/form-data'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type = "Submit" name="submit" value="Submit"/>
+</form>
+{% include 'inc/_footer.html' %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

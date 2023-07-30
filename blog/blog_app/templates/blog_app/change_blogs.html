@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои блоги</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+</head>
+<body>
+{% include 'inc/_nav.html' %}
+<h1>Управление вашими блогами</h1>
+{% for blog in blogs%}
+<hr>
+<h3 style="display: inline;">{{blog.name}}</h3>{% if blog.images %}
+
+<img src="{{blog.images.url}}" height="50" style="display: inline;">
+{% endif %}<br><br>
+<button type="button" class="btn btn-outline-primary" style="display: inline;"><a href = "{% url 'delete' blog.pk %}" class="link-secondary">Удалить</a></button>
+<button type="button" class="btn btn-outline-primary" style="display: inline;"><a href = "{% url 'change_name' blog.pk %}" class="link-secondary">Изменить имя</a></button>
+<button type="button" class="btn btn-outline-primary" style="display: inline;"><a href = "{% url 'change_img' blog.pk %}" class="link-secondary">Изменить картинку</a></button>
+
+<hr>
+{% endfor %}
+
+{% include 'inc/_footer.html' %}
+</body>
+</html>
